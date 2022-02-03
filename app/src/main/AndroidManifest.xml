@@ -20,9 +20,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="br.com.lucas.weatherforecastapp.API_KEY"
-            android:value="${API_KEY}"/>
     </application>
 </manifest>
