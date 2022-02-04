@@ -4,4 +4,7 @@
     <string name="label_search_icon">Search Icon</string>
     <string name="label_more_icon">More Icon</string>
     <string name="label_weather_icon">Weather Icon</string>
+    <string name="label_humidity_icon">Humidity Icon</string>
+    <string name="label_pressure_icon">Pressure Icon</string>
+    <string name="label_wind_icon">Wind Icon</string>
 </resources>
