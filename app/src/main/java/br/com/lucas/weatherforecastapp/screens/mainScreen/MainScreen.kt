@@ -21,6 +21,7 @@ import br.com.lucas.weatherforecastapp.data.DataOrException
 import br.com.lucas.weatherforecastapp.model.WeatherItem
 import br.com.lucas.weatherforecastapp.model.WeatherObject
 import br.com.lucas.weatherforecastapp.utils.formatDate
+import br.com.lucas.weatherforecastapp.utils.formatDateTime
 import br.com.lucas.weatherforecastapp.utils.formatDecimals
 import br.com.lucas.weatherforecastapp.widgets.WeatherAppBar
 import coil.compose.rememberImagePainter
@@ -100,7 +101,43 @@ fun MainContent(data: WeatherObject) {
             }
         }
         HumidityWindPressureRow(weather = weatherItem)
-        Divider()
+        Divider(Modifier.padding(bottom = 15.dp))
+        SunsetSunriseRow(weather = weatherItem)
+    }
+}
+
+@Composable
+fun SunsetSunriseRow(weather: WeatherItem) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(modifier = Modifier.padding(6.dp)) {
+            Icon(
+                painter = painterResource(id = R.drawable.sunrise),
+                contentDescription = stringResource(
+                    R.string.label_sunrise_icon
+                ),
+                modifier = Modifier.size(30.dp)
+            )
+            Text(
+                text = weather.sunrise.formatDateTime(),
+                style = MaterialTheme.typography.caption
+            )
+        }
+        Row(modifier = Modifier.padding(6.dp)) {
+            Text(
+                text = weather.sunset.formatDateTime(),
+                style = MaterialTheme.typography.caption
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.sunset),
+                contentDescription = stringResource(
+                    R.string.label_sunset_icon
+                ),
+                modifier = Modifier.size(30.dp)
+            )
+        }
     }
 }
 
