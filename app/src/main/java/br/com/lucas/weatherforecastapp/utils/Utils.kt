@@ -11,7 +11,7 @@ fun Int.formatDate(): String {
 
 fun Int.formatDateTime(): String {
     val sdf = SimpleDateFormat("hh:mm:aa")
-    val date = java.util.Date(Int.toLong() * 1000)
+    val date = java.util.Date(this.toLong() * 1000)
 
     return sdf.format(date)
 }
