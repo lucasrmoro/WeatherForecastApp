@@ -1,9 +1,8 @@
 package br.com.lucas.weatherforecastapp.model
 
 data class Weather(
-    val city: City,
-    val cnt: Int,
-    val cod: String,
-    val list: List<WeatherObject>,
-    val message: Double
+    val description: String,
+    val icon: String,
+    val id: Int,
+    val main: String
 )
