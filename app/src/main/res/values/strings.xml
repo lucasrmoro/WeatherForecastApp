@@ -3,4 +3,5 @@
     <string name="label_sunny_icon">Sunny icon</string>
     <string name="label_search_icon">Search Icon</string>
     <string name="label_more_icon">More Icon</string>
+    <string name="label_weather_icon">Weather Icon</string>
 </resources>
