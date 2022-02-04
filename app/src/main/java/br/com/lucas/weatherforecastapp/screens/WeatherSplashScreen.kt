@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -24,10 +23,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.lucas.weatherforecastapp.R
+import br.com.lucas.weatherforecastapp.navigation.WeatherScreens
+import kotlinx.coroutines.delay
 
 @Composable
 fun WeatherSplashScreen(navController: NavController) {
@@ -36,12 +36,17 @@ fun WeatherSplashScreen(navController: NavController) {
     }
 
     LaunchedEffect(key1 = true, block = {
-        scale.animateTo(targetValue = 0.9f,
-        animationSpec = tween(durationMillis = 800,
-        easing = {
-            OvershootInterpolator(8f)
-                .getInterpolation(it)
-        }))
+        scale.animateTo(
+            targetValue = 0.9f,
+            animationSpec = tween(durationMillis = 800,
+                easing = {
+                    OvershootInterpolator(8f)
+                        .getInterpolation(it)
+                })
+        )
+
+        delay(2000L)
+        navController.navigate(WeatherScreens.MainScreen.name)
     })
     Surface(
         modifier = Modifier
