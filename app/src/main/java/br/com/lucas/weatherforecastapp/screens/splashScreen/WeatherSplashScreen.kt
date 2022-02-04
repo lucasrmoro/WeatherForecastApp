@@ -1,4 +1,4 @@
-package br.com.lucas.weatherforecastapp.screens
+package br.com.lucas.weatherforecastapp.screens.splashScreen
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable

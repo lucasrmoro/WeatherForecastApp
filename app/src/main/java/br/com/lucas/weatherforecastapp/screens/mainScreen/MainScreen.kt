@@ -1,4 +1,4 @@
-package br.com.lucas.weatherforecastapp.screens
+package br.com.lucas.weatherforecastapp.screens.mainScreen
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
