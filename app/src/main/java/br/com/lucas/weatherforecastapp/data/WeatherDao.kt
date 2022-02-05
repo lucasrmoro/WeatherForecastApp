@@ -1,7 +1,6 @@
 package br.com.lucas.weatherforecastapp.data
 
 import androidx.room.*
-import br.com.lucas.weatherforecastapp.model.City
 import br.com.lucas.weatherforecastapp.model.Favorite
 import kotlinx.coroutines.flow.Flow
 
@@ -11,7 +10,7 @@ interface WeatherDao {
     fun getFavorites(): Flow<List<Favorite>>
 
     @Query("SELECT * FROM favorite_table WHERE city =:city")
-    suspend fun getFavoriteById(city: City): Favorite
+    suspend fun getFavoriteById(city: String): Favorite
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(favorite: Favorite)
