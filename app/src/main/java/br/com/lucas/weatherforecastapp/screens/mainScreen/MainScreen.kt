@@ -134,7 +134,7 @@ fun WeekWeatherForecast(weatherForecastList: List<WeatherItem>) {
                 .padding(3.dp)
         ) {
             LazyColumn(
-                modifier = Modifier.padding(2.dp),
+                modifier = Modifier.padding(4.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 items(items = weatherForecastList) { weatherItem ->
