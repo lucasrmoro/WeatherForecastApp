@@ -15,6 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import br.com.lucas.weatherforecastapp.data.DataOrException
 import br.com.lucas.weatherforecastapp.model.WeatherObject
+import br.com.lucas.weatherforecastapp.navigation.WeatherScreens
 import br.com.lucas.weatherforecastapp.utils.formatDate
 import br.com.lucas.weatherforecastapp.utils.formatDecimals
 import br.com.lucas.weatherforecastapp.widgets.*
@@ -22,12 +23,13 @@ import br.com.lucas.weatherforecastapp.widgets.*
 @Composable
 fun MainScreen(
     navController: NavController,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    city: String?
 ) {
     val weatherData =
         produceState<DataOrException<WeatherObject, Boolean, Exception>>(
             initialValue = DataOrException(loading = true)
-        ) { value = viewModel.getWeatherData(city = "uruguaiana") }.value
+        ) { value = viewModel.getWeatherData(city = "$city") }.value
 
     if (weatherData.loading == true) {
         CircularProgressIndicator()
@@ -43,6 +45,9 @@ fun MainScaffold(weatherObject: WeatherObject, navController: NavController) {
             title = weatherObject.city.name + ", ${weatherObject.city.country}",
             navController = navController,
             elevation = 4.dp,
+            onAddActionClicked = {
+                navController.navigate(WeatherScreens.SearchScreen.name)
+            }
         )
     }) {
         MainContent(data = weatherObject)
