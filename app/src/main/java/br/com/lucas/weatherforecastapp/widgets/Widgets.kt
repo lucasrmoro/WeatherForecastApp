@@ -1,15 +1,19 @@
 package br.com.lucas.weatherforecastapp.widgets
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.rounded.MoreVert
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -199,6 +203,14 @@ fun WeatherAppBar(
     onAddActionClicked: () -> Unit = {},
     onButtonClicked: () -> Unit = {}
 ) {
+    val showDialog = remember {
+        mutableStateOf(false)
+    }
+
+    if (showDialog.value) {
+        ShowSettingDropDownMenu(showDialog = showDialog, navController = navController)
+    }
+
     TopAppBar(
         title = {
             Text(
@@ -218,7 +230,7 @@ fun WeatherAppBar(
                         contentDescription = stringResource(R.string.label_search_icon)
                     )
                 }
-                IconButton(onClick = { onButtonClicked() }) {
+                IconButton(onClick = { showDialog.value = true }) {
                     Icon(
                         imageVector = Icons.Rounded.MoreVert,
                         contentDescription = stringResource(R.string.label_more_icon)
@@ -237,3 +249,54 @@ fun WeatherAppBar(
         elevation = elevation
     )
 }
+
+@Composable
+fun ShowSettingDropDownMenu(
+    showDialog: MutableState<Boolean>,
+    navController: NavController
+) {
+    val items = listOf("About", "Favorites", "Settings")
+    var expanded by remember { mutableStateOf(true) }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.TopEnd)
+            .absolutePadding(top = 45.dp, right = 20.dp)
+    ) {
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = {
+                expanded = false
+                showDialog.value = false
+            },
+            modifier = Modifier
+                .background(color = MaterialTheme.colors.onPrimary)
+                .width(150.dp)
+        ) {
+            items.forEach { menuText ->
+                DropdownMenuItem(onClick = {
+                    expanded = false
+                    showDialog.value = false
+                }) {
+                    Row() {
+                        Icon(
+                            imageVector = when (menuText) {
+                                "About" -> Icons.Default.Info
+                                "Favorites" -> Icons.Default.FavoriteBorder
+                                else -> Icons.Default.Settings
+                            },
+                            contentDescription = null,
+                            tint = Color.LightGray
+                        )
+                        Text(
+                            text = menuText, fontWeight = FontWeight.W300
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
