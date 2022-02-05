@@ -2,6 +2,7 @@ package br.com.lucas.weatherforecastapp.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import br.com.lucas.weatherforecastapp.R
 import br.com.lucas.weatherforecastapp.model.WeatherItem
+import br.com.lucas.weatherforecastapp.navigation.WeatherScreens
 import br.com.lucas.weatherforecastapp.utils.formatDate
 import br.com.lucas.weatherforecastapp.utils.formatDateTime
 import br.com.lucas.weatherforecastapp.utils.formatDecimals
@@ -279,7 +281,15 @@ fun ShowSettingDropDownMenu(
                     expanded = false
                     showDialog.value = false
                 }) {
-                    Row() {
+                    Row(modifier = Modifier.clickable {
+                        navController.navigate(
+                            when(menuText){
+                                "About" -> WeatherScreens.AboutScreen.name
+                                "Favorites" -> WeatherScreens.FavoritesScreen.name
+                                else -> WeatherScreens.SettingsScreen.name
+                            }
+                        )
+                    }) {
                         Icon(
                             imageVector = when (menuText) {
                                 "About" -> Icons.Default.Info
