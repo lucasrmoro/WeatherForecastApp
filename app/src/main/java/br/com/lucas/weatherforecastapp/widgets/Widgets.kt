@@ -281,15 +281,18 @@ fun ShowSettingDropDownMenu(
                     expanded = false
                     showDialog.value = false
                 }) {
-                    Row(modifier = Modifier.clickable {
-                        navController.navigate(
-                            when(menuText){
-                                "About" -> WeatherScreens.AboutScreen.name
-                                "Favorites" -> WeatherScreens.FavoritesScreen.name
-                                else -> WeatherScreens.SettingsScreen.name
-                            }
-                        )
-                    }) {
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            navController.navigate(
+                                when (menuText) {
+                                    "About" -> WeatherScreens.AboutScreen.name
+                                    "Favorites" -> WeatherScreens.FavoritesScreen.name
+                                    else -> WeatherScreens.SettingsScreen.name
+                                }
+                            )
+                        }
+                    ) {
                         Icon(
                             imageVector = when (menuText) {
                                 "About" -> Icons.Default.Info
