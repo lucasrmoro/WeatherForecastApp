@@ -25,7 +25,7 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideWeatherDatabase(weatherDao: WeatherDao, context: Context): WeatherDatabase =
+    fun provideWeatherDatabase(context: Context): WeatherDatabase =
         Room.databaseBuilder(
             context,
             WeatherDatabase::class.java,
