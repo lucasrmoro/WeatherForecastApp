@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import br.com.lucas.weatherforecastapp.screens.aboutScreen.AboutScreen
 import br.com.lucas.weatherforecastapp.screens.favoritesScreen.FavoritesScreen
 import br.com.lucas.weatherforecastapp.screens.mainScreen.MainScreen
+import br.com.lucas.weatherforecastapp.screens.searchScreen.SearchScreen
 import br.com.lucas.weatherforecastapp.screens.settingsScreen.SettingsScreen
 import br.com.lucas.weatherforecastapp.screens.splashScreen.WeatherSplashScreen
 
@@ -33,6 +34,10 @@ fun WeatherNavigation() {
                 MainScreen(navController = navController, city = city)
             }
         }
+        composable(WeatherScreens.SearchScreen.name){
+            SearchScreen(navController = navController)
+        }
+
         composable(WeatherScreens.AboutScreen.name) {
             AboutScreen(navController = navController)
         }
