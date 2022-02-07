@@ -1,4 +1,4 @@
-package br.com.lucas.weatherforecastapp.screens.favoriteScreen
+package br.com.lucas.weatherforecastapp.screens.favoritesScreen
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
