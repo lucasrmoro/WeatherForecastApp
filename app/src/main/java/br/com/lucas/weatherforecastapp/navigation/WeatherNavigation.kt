@@ -24,6 +24,7 @@ fun WeatherNavigation() {
         }
 
         val route = WeatherScreens.MainScreen.name
+
         composable(
             "$route/{city}", arguments = listOf(
                 navArgument(name = "city") {
@@ -34,7 +35,7 @@ fun WeatherNavigation() {
                 MainScreen(navController = navController, city = city)
             }
         }
-        composable(WeatherScreens.SearchScreen.name){
+        composable(WeatherScreens.SearchScreen.name) {
             SearchScreen(navController = navController)
         }
 

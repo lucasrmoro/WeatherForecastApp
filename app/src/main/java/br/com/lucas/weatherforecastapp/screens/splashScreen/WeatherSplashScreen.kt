@@ -47,7 +47,9 @@ fun WeatherSplashScreen(navController: NavController) {
         )
 
         delay(2000L)
-        navController.navigate(WeatherScreens.MainScreen.name + "/$defaultCity")
+        navController.navigate(route = WeatherScreens.MainScreen.name + "/$defaultCity") {
+            popUpTo(WeatherScreens.SplashScreen.name) { inclusive = true }
+        }
     })
     Surface(
         modifier = Modifier

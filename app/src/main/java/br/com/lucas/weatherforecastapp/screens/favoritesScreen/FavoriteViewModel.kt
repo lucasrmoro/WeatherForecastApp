@@ -25,7 +25,7 @@ class FavoriteViewModel @Inject constructor(private val repository: WeatherDbRep
             repository.getFavorites().distinctUntilChanged()
                 .collect { listOfFavs ->
                     if (listOfFavs.isNullOrEmpty()) {
-                        Log.d("FAVS", "Empty favs")
+                        Log.d("FavList", "FavList Empty")
                     } else {
                         _favList.value = listOfFavs
                     }
