@@ -1,6 +1,5 @@
 package br.com.lucas.weatherforecastapp.screens.mainScreen
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -17,6 +16,7 @@ import br.com.lucas.weatherforecastapp.data.DataOrException
 import br.com.lucas.weatherforecastapp.model.WeatherObject
 import br.com.lucas.weatherforecastapp.navigation.WeatherScreens
 import br.com.lucas.weatherforecastapp.screens.settingsScreen.SettingsViewModel
+import br.com.lucas.weatherforecastapp.ui.theme.CircleColor
 import br.com.lucas.weatherforecastapp.utils.formatDate
 import br.com.lucas.weatherforecastapp.utils.formatDecimals
 import br.com.lucas.weatherforecastapp.widgets.*
@@ -42,7 +42,6 @@ fun MainScreen(
             initialValue = DataOrException(loading = true)
         ) {
             value = viewModel.getWeatherData(city = city!!, units = unit)
-            Log.d("TAG", value.data.toString())
         }.value
 
     if (weatherData.loading == true) {
@@ -87,7 +86,6 @@ fun MainContent(data: WeatherObject, isImperial: Boolean) {
         Text(
             text = weatherItem.dt.formatDate(),
             style = MaterialTheme.typography.caption,
-            color = MaterialTheme.colors.onSecondary,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(6.dp)
         )
@@ -96,7 +94,7 @@ fun MainContent(data: WeatherObject, isImperial: Boolean) {
                 .padding(4.dp)
                 .size(200.dp),
             shape = CircleShape,
-            color = Color(0xFFFFC400)
+            color = if(MaterialTheme.colors.isLight) CircleColor else CircleColor.copy(.85f)
         ) {
 
             Column(
@@ -108,6 +106,7 @@ fun MainContent(data: WeatherObject, isImperial: Boolean) {
 
                 Text(
                     text = weatherItem.temp.day.formatDecimals() + "°",
+                    color = Color.Black,
                     style = MaterialTheme.typography.h4,
                     fontWeight = FontWeight.ExtraBold
                 )

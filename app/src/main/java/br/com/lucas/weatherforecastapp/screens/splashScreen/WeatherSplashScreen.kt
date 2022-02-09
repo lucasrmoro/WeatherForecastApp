@@ -56,9 +56,9 @@ fun WeatherSplashScreen(navController: NavController) {
             .padding(15.dp)
             .size(330.dp)
             .scale(scale.value),
+        color = if(MaterialTheme.colors.isLight) Color.White else Color.DarkGray,
         shape = CircleShape,
-        color = Color.White,
-        border = BorderStroke(width = 2.dp, color = Color.LightGray)
+        border = BorderStroke(width = 2.dp, color = Color.Gray)
     ) {
         Column(
             modifier = Modifier.padding(1.dp),
@@ -74,7 +74,7 @@ fun WeatherSplashScreen(navController: NavController) {
             Text(
                 text = "Find the Sun?",
                 style = MaterialTheme.typography.h5,
-                color = Color.LightGray
+                color = Color.Black
             )
         }
     }

@@ -77,7 +77,7 @@ fun SearchBar(
     Column {
         CommonTextField(
             valueState = searchQueryState,
-            placeholder = "Seattle",
+            placeholder = "City",
             onAction = KeyboardActions {
                 if (!isSearchQueryValid) return@KeyboardActions
                 onSearch(searchQueryState.value.trim())
@@ -106,10 +106,6 @@ fun CommonTextField(
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         keyboardActions = onAction,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Color.Blue,
-            cursorColor = Color.Black
-        ),
         shape = RoundedCornerShape(15.dp),
         modifier = modifier
             .fillMaxWidth()

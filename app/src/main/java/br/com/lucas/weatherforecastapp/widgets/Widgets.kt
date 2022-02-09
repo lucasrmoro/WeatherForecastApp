@@ -38,6 +38,7 @@ import br.com.lucas.weatherforecastapp.model.Favorite
 import br.com.lucas.weatherforecastapp.model.WeatherItem
 import br.com.lucas.weatherforecastapp.navigation.WeatherScreens
 import br.com.lucas.weatherforecastapp.screens.favoritesScreen.FavoriteViewModel
+import br.com.lucas.weatherforecastapp.ui.theme.LightGray
 import br.com.lucas.weatherforecastapp.utils.formatDate
 import br.com.lucas.weatherforecastapp.utils.formatDateTime
 import br.com.lucas.weatherforecastapp.utils.formatDecimals
@@ -58,7 +59,7 @@ fun WeekWeatherForecast(weatherForecastList: List<WeatherItem>) {
             fontWeight = FontWeight.Bold
         )
         Surface(
-            color = Color(0xFFEEF1EF),
+            color = if(MaterialTheme.colors.isLight) LightGray else Color.Transparent,
             shape = RoundedCornerShape(14.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -82,7 +83,7 @@ fun WeatherDetailRow(weatherItem: WeatherItem) {
     val imageUrl = "https://openweathermap.org/img/wn/${weatherItem.weather.first().icon}.png"
 
     Surface(
-        color = MaterialTheme.colors.onPrimary,
+        color = if(MaterialTheme.colors.isLight) Color.White else Color.Gray,
         modifier = Modifier
             .clip(
                 RoundedCornerShape(
@@ -232,7 +233,6 @@ fun WeatherAppBar(
         title = {
             Text(
                 text = title,
-                color = MaterialTheme.colors.onSecondary,
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
