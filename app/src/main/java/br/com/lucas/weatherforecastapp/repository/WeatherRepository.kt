@@ -6,10 +6,13 @@ import br.com.lucas.weatherforecastapp.network.WeatherApi
 
 class WeatherRepository(private val api: WeatherApi) {
 
-    suspend fun getWeather(cityQuery: String): DataOrException<WeatherObject, Boolean, Exception> {
+    suspend fun getWeather(
+        cityQuery: String,
+        units: String
+    ): DataOrException<WeatherObject, Boolean, Exception> {
         val response = try {
-            api.getWeather(query = cityQuery)
-        } catch (e: Exception){
+            api.getWeather(query = cityQuery, units = units)
+        } catch (e: Exception) {
             return DataOrException(e = e)
         }
         return DataOrException(data = response)
