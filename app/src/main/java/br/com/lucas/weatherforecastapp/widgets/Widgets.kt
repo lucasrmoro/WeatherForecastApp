@@ -158,7 +158,7 @@ fun SunsetSunriseRow(weather: WeatherItem) {
 }
 
 @Composable
-fun HumidityWindPressureRow(weather: WeatherItem) {
+fun HumidityWindPressureRow(weather: WeatherItem, isImperial: Boolean) {
     Row(
         modifier = Modifier
             .padding(12.dp)
@@ -188,7 +188,10 @@ fun HumidityWindPressureRow(weather: WeatherItem) {
                 contentDescription = stringResource(R.string.label_wind_icon),
                 modifier = Modifier.size(20.dp)
             )
-            Text(text = "${weather.speed} mph", style = MaterialTheme.typography.caption)
+            Text(
+                text = "${weather.speed} " + if (isImperial) "mph" else "m/s",
+                style = MaterialTheme.typography.caption
+            )
         }
     }
 }
