@@ -38,6 +38,7 @@ import br.com.lucas.weatherforecastapp.model.Favorite
 import br.com.lucas.weatherforecastapp.model.WeatherItem
 import br.com.lucas.weatherforecastapp.navigation.WeatherScreens
 import br.com.lucas.weatherforecastapp.screens.favoritesScreen.FavoriteViewModel
+import br.com.lucas.weatherforecastapp.screens.settingsScreen.SettingsViewModel
 import br.com.lucas.weatherforecastapp.ui.theme.LightGray
 import br.com.lucas.weatherforecastapp.utils.formatDate
 import br.com.lucas.weatherforecastapp.utils.formatDateTime
@@ -59,7 +60,7 @@ fun WeekWeatherForecast(weatherForecastList: List<WeatherItem>) {
             fontWeight = FontWeight.Bold
         )
         Surface(
-            color = if(MaterialTheme.colors.isLight) LightGray else Color.Transparent,
+            color = if (MaterialTheme.colors.isLight) LightGray else Color.Transparent,
             shape = RoundedCornerShape(14.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -83,7 +84,7 @@ fun WeatherDetailRow(weatherItem: WeatherItem) {
     val imageUrl = "https://openweathermap.org/img/wn/${weatherItem.weather.first().icon}.png"
 
     Surface(
-        color = if(MaterialTheme.colors.isLight) Color.White else Color.Gray,
+        color = if (MaterialTheme.colors.isLight) Color.White else Color.Gray,
         modifier = Modifier
             .clip(
                 RoundedCornerShape(
@@ -159,7 +160,10 @@ fun SunsetSunriseRow(weather: WeatherItem) {
 }
 
 @Composable
-fun HumidityWindPressureRow(weather: WeatherItem, isImperial: Boolean) {
+fun HumidityWindPressureRow(
+    weather: WeatherItem,
+    isImperial: Boolean
+) {
     Row(
         modifier = Modifier
             .padding(12.dp)
@@ -191,7 +195,8 @@ fun HumidityWindPressureRow(weather: WeatherItem, isImperial: Boolean) {
             )
             Text(
                 text = "${weather.speed} " + if (isImperial) "mph" else "m/s",
-                style = MaterialTheme.typography.caption
+                style = MaterialTheme.typography.caption,
+                modifier = Modifier.padding(start = 3.dp)
             )
         }
     }

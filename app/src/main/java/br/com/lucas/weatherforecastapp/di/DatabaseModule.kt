@@ -16,10 +16,6 @@ import javax.inject.Singleton
 class DatabaseModule {
     @Singleton
     @Provides
-    fun provideAppContext(@ApplicationContext context: Context) = context
-
-    @Singleton
-    @Provides
     fun provideWeatherDao(weatherDatabase: WeatherDatabase): WeatherDao =
         weatherDatabase.weatherDao()
 

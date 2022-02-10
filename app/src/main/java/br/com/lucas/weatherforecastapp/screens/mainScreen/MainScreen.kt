@@ -28,20 +28,20 @@ fun MainScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel(),
     city: String?
 ) {
-    val unitFromDb = settingsViewModel.unitSettingsList.collectAsState().value
-    var unit by remember { mutableStateOf("imperial") }
-    var isImperial by remember { mutableStateOf(false) }
-
-    if (!unitFromDb.isNullOrEmpty()) {
-        unit = unitFromDb[0].unit.split(" ")[0].lowercase()
-        isImperial = unit == "imperial"
+    val isImperial by remember {
+        mutableStateOf(
+            settingsViewModel.unitMeasureSetting.split(" ")[0].lowercase() == "imperial"
+        )
     }
 
     val weatherData =
         produceState<DataOrException<WeatherObject, Boolean, Exception>>(
             initialValue = DataOrException(loading = true)
         ) {
-            value = viewModel.getWeatherData(city = city!!, units = unit)
+            value = viewModel.getWeatherData(
+                city = city!!,
+                units = settingsViewModel.unitMeasureSetting.split(" ")[0].lowercase()
+            )
         }.value
 
     if (weatherData.loading == true) {
@@ -94,7 +94,7 @@ fun MainContent(data: WeatherObject, isImperial: Boolean) {
                 .padding(4.dp)
                 .size(200.dp),
             shape = CircleShape,
-            color = if(MaterialTheme.colors.isLight) CircleColor else CircleColor.copy(.85f)
+            color = if (MaterialTheme.colors.isLight) CircleColor else CircleColor.copy(.85f)
         ) {
 
             Column(

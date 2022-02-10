@@ -1,24 +1,24 @@
 package br.com.lucas.weatherforecastapp.screens.settingsScreen
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import br.com.lucas.weatherforecastapp.R
-import br.com.lucas.weatherforecastapp.model.UnitSettings
 import br.com.lucas.weatherforecastapp.widgets.WeatherAppBar
 
 @Composable
@@ -35,12 +35,16 @@ fun SettingsScreen(
             isMainScreen = false
         )
     }) {
-        val unitToggleState = remember { mutableStateOf(false) }
         val measureUnits = listOf("Imperial (F)", "Metric (C)")
-        val choiceFromDb = settingsViewModel.unitSettingsList.collectAsState().value
-        val defaultChoice =
-            if (choiceFromDb.isNullOrEmpty()) measureUnits[0] else choiceFromDb[0].unit
-        var choiceState by remember { mutableStateOf(defaultChoice) }
+//        val defaultChoice =
+//            if (choiceFromDb.isNullOrEmpty()) measureUnits[0] else choiceFromDb[0].unit
+        var selectedItem by remember { mutableStateOf(settingsViewModel.unitMeasureSetting) }
+        var expanded by remember { mutableStateOf(false) }
+        val icon = if (expanded) {
+            Icons.Filled.KeyboardArrowUp
+        } else {
+            Icons.Filled.KeyboardArrowDown
+        }
 
         Surface(
             modifier = Modifier
@@ -51,32 +55,51 @@ fun SettingsScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Change Unit Of Measurement",
-                    modifier = Modifier.padding(bottom = 15.dp)
-                )
+                Column {
+                    val menuFieldWidth = 200.dp
+                    OutlinedTextField(value = selectedItem, onValueChange = { selectedItem = it },
+                        modifier = Modifier
+                            .width(menuFieldWidth)
+                            .focusable(false)
+                            .clickable(
+                                onClick = {
+                                    expanded = !expanded
+                                }
+                            ),
+                        colors = TextFieldDefaults.textFieldColors(
+                            disabledTextColor = MaterialTheme.colors.onSurface,
+                            disabledLabelColor = MaterialTheme.colors.onSurface
+                        ),
+                        enabled = false,
+                        label = { Text(text = "Unit measure") },
+                        trailingIcon = {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = null
+                            )
+                        })
 
-                IconToggleButton(
-                    checked = !unitToggleState.value, onCheckedChange = {
-                        unitToggleState.value = !it
-                        choiceState = if (unitToggleState.value) {
-                            "Imperial (F)"
-                        } else {
-                            "Metric (C)"
+                    DropdownMenu(
+                        expanded = expanded, onDismissRequest = { expanded = false },
+                        modifier = Modifier.width(menuFieldWidth)
+                    ) {
+                        measureUnits.forEach { label ->
+                            DropdownMenuItem(onClick = {
+                                selectedItem = label
+                                expanded = false
+                            }) {
+                                Text(text = label)
+                            }
                         }
-                    }, modifier = Modifier
-                        .fillMaxWidth(0.5f)
-                        .clip(shape = RectangleShape)
-                        .padding(5.dp)
-                        .background(Color.Magenta.copy(alpha = 0.4f))
-                ) {
-                    Text(text = if (unitToggleState.value) "Fahrenheit °F" else "Celsius °C")
+                    }
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Button(
                     onClick = {
-                        settingsViewModel.deleteAllUnitSettings()
-                        settingsViewModel.insertUnitSettings(UnitSettings(unit = choiceState))
+                        settingsViewModel.clearUnitMeasureSetting()
+                        settingsViewModel.unitMeasureSetting = selectedItem
                     },
                     modifier = Modifier
                         .padding(3.dp)
