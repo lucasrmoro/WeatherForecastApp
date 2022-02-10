@@ -19,6 +19,7 @@ import br.com.lucas.weatherforecastapp.screens.settingsScreen.SettingsViewModel
 import br.com.lucas.weatherforecastapp.ui.theme.CircleColor
 import br.com.lucas.weatherforecastapp.utils.formatDate
 import br.com.lucas.weatherforecastapp.utils.formatDecimals
+import br.com.lucas.weatherforecastapp.utils.getImageUrl
 import br.com.lucas.weatherforecastapp.widgets.*
 
 @Composable
@@ -74,7 +75,6 @@ fun MainScaffold(weatherObject: WeatherObject, navController: NavController, isI
 @Composable
 fun MainContent(data: WeatherObject, isImperial: Boolean) {
     val weatherItem = data.list.first()
-    val imageUrl = "https://openweathermap.org/img/wn/${weatherItem.weather.first().icon}.png"
 
     Column(
         modifier = Modifier
@@ -102,7 +102,10 @@ fun MainContent(data: WeatherObject, isImperial: Boolean) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                WeatherStateImage(imageUrl = imageUrl, modifier = Modifier)
+                WeatherStateImage(
+                    imageUrl = getImageUrl(weatherItem.weather.first().icon),
+                    modifier = Modifier
+                )
 
                 Text(
                     text = weatherItem.temp.day.formatDecimals() + "°",

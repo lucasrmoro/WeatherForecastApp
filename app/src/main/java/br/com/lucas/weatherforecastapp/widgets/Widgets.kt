@@ -43,6 +43,7 @@ import br.com.lucas.weatherforecastapp.ui.theme.LightGray
 import br.com.lucas.weatherforecastapp.utils.formatDate
 import br.com.lucas.weatherforecastapp.utils.formatDateTime
 import br.com.lucas.weatherforecastapp.utils.formatDecimals
+import br.com.lucas.weatherforecastapp.utils.getImageUrl
 import coil.compose.rememberImagePainter
 
 @Composable
@@ -81,8 +82,6 @@ fun WeekWeatherForecast(weatherForecastList: List<WeatherItem>) {
 
 @Composable
 fun WeatherDetailRow(weatherItem: WeatherItem) {
-    val imageUrl = "https://openweathermap.org/img/wn/${weatherItem.weather.first().icon}.png"
-
     Surface(
         color = if (MaterialTheme.colors.isLight) Color.White else Color.Gray,
         modifier = Modifier
@@ -100,7 +99,7 @@ fun WeatherDetailRow(weatherItem: WeatherItem) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                WeatherStateImage(imageUrl = imageUrl, modifier = Modifier.size(65.dp))
+                WeatherStateImage(imageUrl = getImageUrl(weatherItem.weather.first().icon), modifier = Modifier.size(65.dp))
                 Text(
                     text = "${
                         weatherItem.dt.formatDate().split(",")[0]

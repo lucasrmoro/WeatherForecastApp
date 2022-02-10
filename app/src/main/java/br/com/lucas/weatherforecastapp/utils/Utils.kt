@@ -19,3 +19,5 @@ fun Int.formatDateTime(): String {
 fun Double.formatDecimals(): String {
     return " %.0f".format(this)
 }
+
+fun getImageUrl(image: String): String = "https://openweathermap.org/img/wn/$image.png"
