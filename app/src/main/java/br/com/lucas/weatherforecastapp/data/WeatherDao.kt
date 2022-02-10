@@ -2,7 +2,6 @@ package br.com.lucas.weatherforecastapp.data
 
 import androidx.room.*
 import br.com.lucas.weatherforecastapp.model.Favorite
-import br.com.lucas.weatherforecastapp.model.UnitSettings
 import kotlinx.coroutines.flow.Flow
 
 @Dao

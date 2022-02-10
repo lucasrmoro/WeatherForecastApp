@@ -2,7 +2,6 @@ package br.com.lucas.weatherforecastapp.repository
 
 import br.com.lucas.weatherforecastapp.data.WeatherDao
 import br.com.lucas.weatherforecastapp.model.Favorite
-import br.com.lucas.weatherforecastapp.model.UnitSettings
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

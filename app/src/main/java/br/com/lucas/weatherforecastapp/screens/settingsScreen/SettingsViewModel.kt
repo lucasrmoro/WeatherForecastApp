@@ -16,8 +16,8 @@ class SettingsViewModel @Inject constructor(private val preferencesDelegate: Pre
         }
         get() = preferencesDelegate.getPreference(
             Constants.UNIT_MEASURE_SETTING_KEY,
-            "Metric (C)"
-        ) as String? ?: "Metric (C)"
+            "metric"
+        ) as String? ?: "metric"
 
     fun clearUnitMeasureSetting() =
         preferencesDelegate.removePreference(Constants.UNIT_MEASURE_SETTING_KEY)

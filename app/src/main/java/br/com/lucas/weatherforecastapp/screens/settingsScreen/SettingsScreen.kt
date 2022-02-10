@@ -36,9 +36,12 @@ fun SettingsScreen(
         )
     }) {
         val measureUnits = listOf("Imperial (F)", "Metric (C)")
-//        val defaultChoice =
-//            if (choiceFromDb.isNullOrEmpty()) measureUnits[0] else choiceFromDb[0].unit
-        var selectedItem by remember { mutableStateOf(settingsViewModel.unitMeasureSetting) }
+        var selectedItem by remember {
+            mutableStateOf(
+                if (settingsViewModel.unitMeasureSetting == "imperial")
+                    measureUnits[0] else measureUnits[1]
+            )
+        }
         var expanded by remember { mutableStateOf(false) }
         val icon = if (expanded) {
             Icons.Filled.KeyboardArrowUp
@@ -71,7 +74,7 @@ fun SettingsScreen(
                             disabledLabelColor = MaterialTheme.colors.onSurface
                         ),
                         enabled = false,
-                        label = { Text(text = "Unit measure") },
+                        label = { Text(text = stringResource(R.string.label_unit_measure)) },
                         trailingIcon = {
                             Icon(
                                 imageVector = icon,
@@ -99,7 +102,8 @@ fun SettingsScreen(
                 Button(
                     onClick = {
                         settingsViewModel.clearUnitMeasureSetting()
-                        settingsViewModel.unitMeasureSetting = selectedItem
+                        settingsViewModel.unitMeasureSetting =
+                            selectedItem.split(" ")[0].lowercase()
                     },
                     modifier = Modifier
                         .padding(3.dp)

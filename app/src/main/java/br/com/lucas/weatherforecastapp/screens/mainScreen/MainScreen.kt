@@ -31,7 +31,7 @@ fun MainScreen(
 ) {
     val isImperial by remember {
         mutableStateOf(
-            settingsViewModel.unitMeasureSetting.split(" ")[0].lowercase() == "imperial"
+            settingsViewModel.unitMeasureSetting == "imperial"
         )
     }
 
@@ -41,7 +41,7 @@ fun MainScreen(
         ) {
             value = viewModel.getWeatherData(
                 city = city!!,
-                units = settingsViewModel.unitMeasureSetting.split(" ")[0].lowercase()
+                units = settingsViewModel.unitMeasureSetting
             )
         }.value
 
