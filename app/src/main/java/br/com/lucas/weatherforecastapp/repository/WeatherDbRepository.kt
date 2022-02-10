@@ -13,10 +13,4 @@ class WeatherDbRepository @Inject constructor(private val weatherDao: WeatherDao
     suspend fun updateFavorite(favorite: Favorite) = weatherDao.updateFavorite(favorite)
     suspend fun deleteFavorite(favorite: Favorite) = weatherDao.deleteFavorite(favorite)
     suspend fun deleteAllFavorites() = weatherDao.deleteAllFavorites()
-
-    fun getUnitSettings(): Flow<List<UnitSettings>> = weatherDao.getUnitsSettings()
-    suspend fun insertUnitSettings(unitSettings: UnitSettings) = weatherDao.insertUnitSettings(unitSettings)
-    suspend fun updateUnitSettings(unitSettings: UnitSettings) = weatherDao.updateUnitSettings(unitSettings)
-    suspend fun deleteUnitSettings(unitSettings: UnitSettings) = weatherDao.deleteUnitSettings(unitSettings)
-    suspend fun deleteAllUnitsSettings() = weatherDao.deleteAllUnitSettings()
 }
